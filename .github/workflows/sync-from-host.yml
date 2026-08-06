@@ -1,0 +1,45 @@
+name: Sync from host release
+
+on:
+  repository_dispatch:
+    types: [host-release]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Host version without v prefix (empty = latest)
+        required: false
+        type: string
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Sync manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_VERSION: ${{ github.event.inputs.version || github.event.client_payload.version || '' }}
+        run: |
+          if [ -n "$INPUT_VERSION" ]; then
+            pwsh bin/sync-host.ps1 -Version "$INPUT_VERSION"
+          else
+            pwsh bin/sync-host.ps1
+          fi
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet; then
+            echo "Manifest already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bucket/background-studio.json
+          git commit -m "chore: sync Background Studio $(jq -r .version bucket/background-studio.json)"
+          git push
