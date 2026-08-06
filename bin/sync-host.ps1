@@ -36,8 +36,12 @@ $manifest = Get-Content $manifestPath -Raw | ConvertFrom-Json
 $manifest.version = $Version
 $manifest.architecture.'64bit'.url = "https://github.com/background-studio/background-studio/releases/download/v$Version/Background.Studio_${Version}_x64-setup.exe#/dl.7z"
 $manifest.architecture.'64bit'.hash = $hash
+# Tauri NSIS extract name is the Cargo package binary, not productName.
+$manifest.bin = "background-studio.exe"
+$manifest.shortcuts = @(
+    , @("background-studio.exe", "Background Studio")
+)
 
 $json = $manifest | ConvertTo-Json -Depth 20
-# ConvertTo-Json may reorder; write with stable UTF-8
 [System.IO.File]::WriteAllText($manifestPath, ($json + "`n"))
 Write-Host "Updated background-studio.json -> $Version ($hash)"

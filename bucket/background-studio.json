@@ -9,12 +9,15 @@
       "hash": "f9dfc74278e4c6a91a9e104b2b35da013ca8f0299e2551ec09ee58b74a4eb01c"
     }
   },
-  "bin": "Background Studio.exe",
+  "bin": "background-studio.exe",
   "shortcuts": [
     [
-      "Background Studio.exe",
+      "background-studio.exe",
       "Background Studio"
     ]
+  ],
+  "post_install": [
+    "Remove-Item \"$dir\\`$PLUGINSDIR\" -Recurse -Force -ErrorAction SilentlyContinue"
   ],
   "checkver": {
     "github": "https://github.com/background-studio/background-studio"
@@ -32,7 +35,8 @@
     }
   },
   "notes": [
+    "Executable inside the NSIS package is background-studio.exe (cargo name), not 'Background Studio.exe'.",
     "Data lives in %LOCALAPPDATA%\\BackgroundStudio (or the directory set in host.json).",
-    "Install plugins from the app UI after first launch."
+    "If you previously installed the NSIS setup, quit/uninstall it first to avoid double tray icons; settings are kept."
   ]
 }
