@@ -1,0 +1,38 @@
+{
+    "version": "0.1.2",
+    "description": "Background Studio host: one tray to manage Codex, Notion, and Multica background plugins.",
+    "homepage": "https://github.com/background-studio/background-studio",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/background-studio/background-studio/releases/download/v0.1.2/Background.Studio_0.1.2_x64-setup.exe#/dl.7z",
+            "hash": "f46dee7813ec2a1f324fea1c0af3196fa87f35ab7bcbe80d98c9554e0769f1f2"
+        }
+    },
+    "bin": "Background Studio.exe",
+    "shortcuts": [
+        [
+            "Background Studio.exe",
+            "Background Studio"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/background-studio/background-studio"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/background-studio/background-studio/releases/download/v$version/Background.Studio_$version_x64-setup.exe#/dl.7z",
+                "hash": {
+                    "url": "https://api.github.com/repos/background-studio/background-studio/releases/tags/v$version",
+                    "jsonpath": "$.assets[?(@.name == 'Background.Studio_$version_x64-setup.exe')].digest",
+                    "regex": "sha256:([a-fA-F0-9]{64})"
+                }
+            }
+        }
+    },
+    "notes": [
+        "Data lives in %LOCALAPPDATA%\\BackgroundStudio (or the directory set in host.json).",
+        "Install plugins from the app UI after first launch."
+    ]
+}
