@@ -1,12 +1,12 @@
 {
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Background Studio host: one tray to manage Codex, Notion, and Multica background plugins.",
   "homepage": "https://github.com/background-studio/background-studio",
   "license": "MIT",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/background-studio/background-studio/releases/download/v0.3.4/Background.Studio_0.3.4_x64-setup.exe#/dl.7z",
-      "hash": "fe739b4223eb287632b546af35167eeee20e9f45a3dba1d8404e97fc28a9daa5"
+      "url": "https://github.com/background-studio/background-studio/releases/download/v0.3.5/Background.Studio_0.3.5_x64-setup.exe#/dl.7z",
+      "hash": "1c14065005f358deb5a750ad8434dee0b46e999c9b49f20fc67f54624e73e70b"
     }
   },
   "bin": "background-studio.exe",
